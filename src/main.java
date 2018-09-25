@@ -58,9 +58,19 @@ public class main {
 
                 if (aiAnswer.equals("lower"))
                 {
+                    numOfGuess++;
                     upperBunk = avg;
                     avg = (lowerBunk + upperBunk) / 2;
                     System.out.println(avg);
+                    System.out.println("Is your number higher or lower than " + avg);
+                }
+                if (aiAnswer.equals("higher"))
+                {
+                    numOfGuess++;
+                    lowerBunk = avg;
+                    avg = (lowerBunk + upperBunk) / 2;
+                    System.out.println(avg);
+                    System.out.println("Is your number higher or lower than " + avg);
                 }
             }
             System.out.println("Correct! Attemps : " + numOfGuess);
