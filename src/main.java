@@ -1,3 +1,4 @@
+import java.util.InputMismatchException;
 import java.util.Scanner;
 
 public class main {
@@ -19,24 +20,34 @@ public class main {
             double randomDouble = Math.random() * 100;
             int random = (int) randomDouble;
             System.out.println("Alright, I am thinking of a number from 1 - 100. Can you try to guess " + name + "?");
+
             Scanner userGuess = new Scanner(System.in);
-            int guess = userGuess.nextInt();
 
-            while (guess != random) {
-                if (guess < random) {
-                    System.out.println("Thats not right! My number is higher! Try again " + name);
-                }
-                if (guess > random) {
-                    System.out.println("Thats not right! My number is lower! Try again " + name);
-                }
-                numOfGuess++;
-                guess = userGuess.nextInt();
-            }
+           int  guess = 100;
 
-            if (guess == random) {
-                System.out.println("Congrats " + name + "! " + "You've got my number!");
-                System.out.println("You took " + numOfGuess + " tries.");
-            }
+                while (guess != random) {
+                    try {
+                        guess = userGuess.nextInt();
+                        if (guess < random) {
+                            System.out.println("That's not right! My number is higher! Try again " + name);
+                        }
+                        if (guess > random) {
+                            System.out.println("That's not right! My number is lower! Try again " + name);
+                        }
+                        numOfGuess++;
+                    }
+                    catch (InputMismatchException e)
+                    {
+                        System.out.println("That wasn't a number, please try again.");
+                        userGuess.next();
+                    }
+                }
+
+                if (guess == random) {
+                    System.out.println("Congrats " + name + "! " + "You've got my number!");
+                    System.out.println("You took " + numOfGuess + " tries.");
+                }
+
         }
 
         if (gameChoice == 2) {
@@ -49,7 +60,8 @@ public class main {
             Scanner answer = new Scanner(System.in);
             String aiAnswer = answer.nextLine();
 
-            while (!aiAnswer.toLowerCase().equals("correct")) {
+            while (!aiAnswer.toLowerCase().equals("correct"))
+            {
                 if (aiAnswer.toLowerCase().equals("lower")) {
                     numOfGuess++;
                     upperBunk = avg;
@@ -63,7 +75,6 @@ public class main {
                     avg = (lowerBunk + upperBunk) / 2;
                     System.out.println("Is your number higher or lower than " + avg + "? Or am I correct?");
                     aiAnswer = answer.nextLine();
-
                 }
             }
             System.out.println("I got it right! I took " + numOfGuess + " tries.");
